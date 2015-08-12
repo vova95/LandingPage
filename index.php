@@ -9,68 +9,9 @@
 </head>
 <body>
 <?php
-function url_get_contents ($Url) {
-    if (!function_exists('curl_init')){ 
-        die('CURL is not installed!');
-    }
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $Url);
-    curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $output = curl_exec($ch);
-    curl_close($ch);
-    return $output;
-}
-    $client_id = '5028342'; // ID приложения
-	$client_secret = 'oMoX2PVkI216bQSWVEVw'; // Защищённый ключ
-	$redirect_uri = 'http://LandingPage/'; // Адрес сайта
+require_once "auth.php";
+$authentication = new Authentication();
 
-    $url = 'http://oauth.vk.com/authorize';
-
-    $params = array(
-        'client_id'     => $client_id,
-        'redirect_uri'  => $redirect_uri,
-        'response_type' => 'code'
-    );
-
-    echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) . '">Аутентификация через ВКонтакте</a></p>';
-
-if (isset($_GET['code'])) {
-    $result = false;
-    $params = array(
-        'client_id' => $client_id,
-        'client_secret' => $client_secret,
-        'code' => $_GET['code'],
-        'redirect_uri' => $redirect_uri
-    );
-// var_dump(url_get_contents('https://oauth.vk.com/access_token' . '?' . urldecode(http_build_query($params))));
-
-    $token = json_decode(url_get_contents('https://oauth.vk.com/access_token' . '?' . urldecode(http_build_query($params))), true);
-    var_dump($token);
-    if (isset($token['access_token'])) {
-        $params = array(
-            'uids'         => $token['user_id'],
-            'fields'       => 'uid,first_name,last_name,screen_name,sex,bdate,photo_big',
-            'access_token' => $token['access_token']
-        );
-        $userInfo = json_decode(url_get_contents('https://api.vk.com/method/friends.get' . '?' . urldecode(http_build_query($params))), true);
-        if (isset($userInfo['response'][0]['uid'])) {
-            $userInfo = $userInfo['response'][0];
-            $result = true;
-        }
-    }
-
-    if ($result) {
-        echo "Социальный ID пользователя: " . $userInfo['uid'] . '<br />';
-        echo "Имя пользователя: " . $userInfo['first_name'] . '<br />';
-        echo "Ссылка на профиль пользователя: " . $userInfo['screen_name'] . '<br />';
-        echo "Пол пользователя: " . $userInfo['sex'] . '<br />';
-        echo "День Рождения: " . $userInfo['bdate'] . '<br />';
-        echo '<img src="' . $userInfo['photo_big'] . '" />'; echo "<br />";
-    }
-}
 ?>
 
 	<div class="wrapper">
@@ -104,6 +45,15 @@ if (isset($_GET['code'])) {
 						<option>Opencart</option>
 					</select>
 				</label>
+				<?php
+					$authentication->set_authentication_button();
+					
+				?>
+				<div class="friends_wrapper">
+					<ul class="friends">
+						<?php $authentication->run(); ?>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
