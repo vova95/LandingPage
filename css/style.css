@@ -39,9 +39,9 @@ body {
 	margin: 0 auto;
 }
 .content {
-	width: 940px;
+	width: 815px;
 	height: 1205px;
-	padding: 50px;
+	padding: 50px 75px 40px 50px;
 	background: #ffffff;
 	box-shadow: 0 0 15px rgba(0,0,0,0.5);
 	margin: 0 auto;
@@ -53,4 +53,66 @@ body {
 	font-size: 24px;
 	color: #5e5652;
 	text-align: left;
+}
+.heading {
+	color: #2573b5;
+	font-size: 32px;
+	margin: 0;
+}
+.indent {
+	font-size: 24px;
+	font-family: PT Sans;
+	color: #5e5652;
+}
+.main_content label {
+	font-family: PT Sans;
+	color: #5e5652;
+	font-size: 20px;
+	display: block;
+	padding: 0 130px 0 150px;
+	text-align: left;
+	padding-top: 30px;
+}
+.no_login {
+	color: #2573b5;
+	font-family: PT Sans;
+	font-size: 14px;
+	display: block;
+	text-align: left;
+	padding-bottom: 8px;
+	font-weight: bold;
+}
+.login {
+	width: 100%;
+	height: 50px;
+	background: #fcfcfc;
+	border: solid 1px #d3d3d3;
+	border-radius: 5px;
+	color: #d3d3d3;
+	font-size: 20px;
+	padding-left: 15px;
+	font-family: PT Sans;
+}
+*:focus {
+    outline: 0;
+}
+.products {
+	width: 100%;
+	height: 50px;
+	margin-top: 8px;
+	background: #fcfcfc;
+	border: solid 1px #d3d3d3;
+	border-radius: 5px;
+	color: #d3d3d3;
+	font-size: 20px;
+	padding-left: 15px;
+	font-family: PT Sans;
+}
+.products option {
+	border: solid 1px #d3d3d3;
+	height: 100px;
+}
+
+.products:focus {
+	background: green;
 }
