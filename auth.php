@@ -1,10 +1,10 @@
 <?php
 class Authentication {
 
-	private $client_id = '5028342'; // ID приложения
-	private $client_secret = 'oMoX2PVkI216bQSWVEVw'; // Защищённый ключ
-	private $redirect_uri = 'http://LandingPage/'; // Адрес сайта
-	private $access_token;
+	private $client_id = '5030222'; // ID приложения
+	private $client_secret = 'QQMwD2ICHbKJHKBxi7zY'; // Защищённый ключ
+	private $redirect_uri = 'http://localhost/LandingPage/'; // Адрес сайта
+	// private $access_token;
 
     private $url = 'http://oauth.vk.com/authorize';
 
@@ -14,7 +14,7 @@ class Authentication {
 	    }
 	    $ch = curl_init();
 	    curl_setopt($ch, CURLOPT_URL, $Url);
-	    curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
+	    // curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -26,6 +26,7 @@ class Authentication {
 	function set_authentication_button() {
 		$params = array(
 	        'client_id'     => $this->client_id,
+	        'scope'         => 'notify,friends,photos,notes,wall,offline',
 	        'redirect_uri'  => $this->redirect_uri,
 	        'response_type' => 'code'
     	);
@@ -38,6 +39,7 @@ class Authentication {
 		    $result = false;
 		    $params = array(
 		        'client_id' => $this->client_id,
+		        'scope'         => 'notify,friends,photos,notes,wall,offline',
 		        'client_secret' => $this->client_secret,
 		        'code' => $_GET['code'],
 		        'redirect_uri' => $this->redirect_uri
@@ -46,12 +48,14 @@ class Authentication {
 
 		    $token = json_decode($this->url_get_contents('https://oauth.vk.com/access_token' . '?' . urldecode(http_build_query($params))), true);
 		    // var_dump($token);
-		    $this->access_token = $token;
+		    // $this->access_token = $token['access_token'];
 		    $id = '5888733';
-		    $text = "Hello";
+		    $text = "Hello!";
 					// var_dump($this->access_token);
-					$sRequest = "https://api.vkontakte.ru/method/wall.post?owner_id=$id&access_token=$this->access_token&message=$text";
-					$oResponce = json_decode($this->url_get_contents($sRequest));
+					// $sRequest = "https://api.vkontakte.ru/method/wall.post?owner_id=$id&message=$text&access_token=$this->access_token";
+					// $oResponce = json_decode($this->url_get_contents($sRequest));
+		    		// var_dump($this->PostToVK());
+					// var_dump($oResponce);
 		    if (isset($token['access_token'])) {
 		        $params = array(
 		            'uids'         => $token['user_id'],
@@ -71,7 +75,7 @@ class Authentication {
 		    		?>
 		    		<li class="friend">
 		    			<div class="friend_wrapper">
-			    			<div class="selected_user"><input name="user_id[]" type="checkbox" value="<?php echo $value['uid']; ?>"></div>
+			    			<div class="selected_user"><input name="user_id" id="user_id" type="checkbox" value="<?php echo $value['uid']; ?>"></div>
 			    			<img class="photo" src="<?php echo $value['photo']; ?>"></img>
 			    			<div class="name"><?php echo $value['first_name'];?> <br> <?php echo $value['last_name']; ?></div>
 					    	<!-- echo "Социальный ID пользователя: " . $value['uid'] . '<br />';
@@ -91,14 +95,9 @@ class Authentication {
 	function echoing() {
 		if (isset($_POST['user_id'])){
 					$asd = $_POST['user_id'];
-					$text = "Hello";
-					// var_dump($this->access_token);
-					$sRequest = "https://api.vkontakte.ru/method/wall.post?owner_id=$asd[0]&access_token=$this->access_token&message=$text";
-					$oResponce = json_decode($this->url_get_contents($sRequest));
-					
-				} else {
-					var_dump("asd");
-				}
+					// var_dump($asd);
+					return $asd;
+		}
 	}
 }
 ?>

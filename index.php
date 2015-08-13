@@ -3,7 +3,9 @@
 <head>
 	<title>Landing Page</title>
 	<meta charset="utf-8">
-	<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
+	<script type="text/javascript" src="http://userapi.com/js/api/openapi.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans" />
 </head>
@@ -61,6 +63,29 @@ $authentication = new Authentication();
 				<?php 
 				$authentication->echoing(); ?>
 			</div>
+			<div onclick="sendwallpost('Hello!');">отправить</div>
+			<script language="javascript">
+				
+			    VK.init({
+			        apiId: 5031578 // id созданного вами приложения вконтакте 
+			    });
+			    
+
+			    function sendwallpost(mydata) {
+			    	var selected = [];
+			    	$('input[name="user_id"]:checked').each(function() {
+			    		selected.push(this.value);
+				});
+			    	// console.log(selected);
+			    	$.each(selected, function(index, value) {
+			    		console.log(value);
+			    		VK.api("wall.post", {
+			            owner_id: value,
+			            message: mydata
+			        }, function (data) {});
+			    	});
+			    }
+			</script>
 		</div>
 	</div>
 </body>
