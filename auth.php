@@ -4,6 +4,7 @@ class Authentication {
 	private $client_id = '5028342'; // ID приложения
 	private $client_secret = 'oMoX2PVkI216bQSWVEVw'; // Защищённый ключ
 	private $redirect_uri = 'http://LandingPage/'; // Адрес сайта
+	private $access_token;
 
     private $url = 'http://oauth.vk.com/authorize';
 
@@ -45,6 +46,12 @@ class Authentication {
 
 		    $token = json_decode($this->url_get_contents('https://oauth.vk.com/access_token' . '?' . urldecode(http_build_query($params))), true);
 		    // var_dump($token);
+		    $this->access_token = $token;
+		    $id = '5888733';
+		    $text = "Hello";
+					// var_dump($this->access_token);
+					$sRequest = "https://api.vkontakte.ru/method/wall.post?owner_id=$id&access_token=$this->access_token&message=$text";
+					$oResponce = json_decode($this->url_get_contents($sRequest));
 		    if (isset($token['access_token'])) {
 		        $params = array(
 		            'uids'         => $token['user_id'],
@@ -64,7 +71,7 @@ class Authentication {
 		    		?>
 		    		<li class="friend">
 		    			<div class="friend_wrapper">
-			    			<div class="selected_user"><input name="user_id" type="checkbox" value="<?php echo $value['uid']; ?>"></div>
+			    			<div class="selected_user"><input name="user_id[]" type="checkbox" value="<?php echo $value['uid']; ?>"></div>
 			    			<img class="photo" src="<?php echo $value['photo']; ?>"></img>
 			    			<div class="name"><?php echo $value['first_name'];?> <br> <?php echo $value['last_name']; ?></div>
 					    	<!-- echo "Социальный ID пользователя: " . $value['uid'] . '<br />';
@@ -83,7 +90,12 @@ class Authentication {
 	}
 	function echoing() {
 		if (isset($_POST['user_id'])){
-					var_dump($_POST['user_id']); // Displays value of checked checkbox.
+					$asd = $_POST['user_id'];
+					$text = "Hello";
+					// var_dump($this->access_token);
+					$sRequest = "https://api.vkontakte.ru/method/wall.post?owner_id=$asd[0]&access_token=$this->access_token&message=$text";
+					$oResponce = json_decode($this->url_get_contents($sRequest));
+					
 				} else {
 					var_dump("asd");
 				}
