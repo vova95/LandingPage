@@ -1,9 +1,9 @@
 <?php
 class Authentication {
 
-	private $client_id = '5030222'; // ID приложения
-	private $client_secret = 'QQMwD2ICHbKJHKBxi7zY'; // Защищённый ключ
-	private $redirect_uri = 'http://localhost/LandingPage/'; // Адрес сайта
+	private $client_id = '5028342'; // ID приложения
+	private $client_secret = 'oMoX2PVkI216bQSWVEVw'; // Защищённый ключ
+	private $redirect_uri = 'http://LandingPage/'; // Адрес сайта
 
     private $url = 'http://oauth.vk.com/authorize';
 
@@ -13,7 +13,7 @@ class Authentication {
 	    }
 	    $ch = curl_init();
 	    curl_setopt($ch, CURLOPT_URL, $Url);
-	    //curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
+	    curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -63,21 +63,30 @@ class Authentication {
 		    	foreach ($userInfo['response'] as $key => $value) {
 		    		?>
 		    		<li class="friend">
-		    			<input type="checkbox">
-		    			<img class="photo" src="<?php echo $value['photo']; ?>"></img>
-		    			<span class="name"><?php echo $value['first_name'];?> <br> <?php echo $value['last_name']; ?></span>
-				    	<!-- echo "Социальный ID пользователя: " . $value['uid'] . '<br />';
-				        echo "Имя пользователя: " . $value['first_name'] . '<br />';
-				        //echo "Ссылка на профиль пользователя: " . $userInfo['screen_name'] . '<br />';
-				        //echo "Пол пользователя: " . $userInfo['sex'] . '<br />';
-				        //echo "День Рождения: " . $userInfo['bdate'] . '<br />';
-				        echo '<img src="' . $value['photo_big'] . '" />'; echo "<br />"; -->
+		    			<div class="friend_wrapper">
+			    			<div class="selected_user"><input name="user_id" type="checkbox" value="<?php echo $value['uid']; ?>"></div>
+			    			<img class="photo" src="<?php echo $value['photo']; ?>"></img>
+			    			<div class="name"><?php echo $value['first_name'];?> <br> <?php echo $value['last_name']; ?></div>
+					    	<!-- echo "Социальный ID пользователя: " . $value['uid'] . '<br />';
+					        echo "Имя пользователя: " . $value['first_name'] . '<br />';
+					        //echo "Ссылка на профиль пользователя: " . $userInfo['screen_name'] . '<br />';
+					        //echo "Пол пользователя: " . $userInfo['sex'] . '<br />';
+					        //echo "День Рождения: " . $userInfo['bdate'] . '<br />';
+					        echo '<img src="' . $value['photo_big'] . '" />'; echo "<br />"; -->
+				        </div>
 			        </li>
 			        <?php
 		    	}
 		        
 		    }
     	}
+	}
+	function echoing() {
+		if (isset($_POST['user_id'])){
+					var_dump($_POST['user_id']); // Displays value of checked checkbox.
+				} else {
+					var_dump("asd");
+				}
 	}
 }
 ?>

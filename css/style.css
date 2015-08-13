@@ -8,6 +8,7 @@ body {
 	width: 1300px;
 	height: 1800px;
 	margin: 0 auto;
+	padding-bottom: 100px;
 	text-align: center;
 }
 .logo {
@@ -128,6 +129,7 @@ body {
 	border-radius: 5px;
 	background: #fcfcfc;
 	margin-top: 50px;
+	margin-bottom: 40px;
 	padding: 15px;
 	box-sizing: border-box;
 }
@@ -150,8 +152,12 @@ body {
 	background: white;
 	border-radius: 5px;
 	margin-bottom: 5px;
-	padding: 5px 15px;
+	/*padding: 5px 15px;*/
 	box-sizing: border-box;
+}
+.friend_wrapper {
+	padding: 5px 15px;
+	display: table;
 }
 .friend .photo {
 	display: inline-block;
@@ -159,8 +165,43 @@ body {
 	height: 50px;
 }
 .friend .name {
-	display: inline-block;
+	display: table-cell;
+	vertical-align: middle;
 	color: #2573b5;
 	/*position: absolute;*/
-    margin: 10px 0 10px 25px;
+    padding-left: 15px;
+}
+.selected_user {
+	display: table-cell;
+	vertical-align: middle;
+    padding-right: 15px;
+    /*position:relative;*/
+}
+.selected_user input[type=checkbox] {
+	background: url('../img/plus.png') 0 0px no-repeat;
+	height: 24px;
+	width: 24px;
+	-webkit-appearance: none;
+	cursor: pointer;
+}
+.selected_user input[type=checkbox]:checked {
+	background: url('../img/check.png') 0 0px no-repeat;
+}
+.send_button {
+	display: table;
+	width: 270px;
+	height: 50px;
+	margin-top: 40px;
+	background: #de4a4a;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: white;
+	vertical-align: middle;
+	margin: 0 auto;
+}
+.send_button span {
+	display: table-cell;
+	vertical-align: middle;
+	font-family: PT Sans;
+	font-size: 24px;
 }

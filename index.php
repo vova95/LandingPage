@@ -46,14 +46,20 @@ $authentication = new Authentication();
 					</select>
 				</label>
 				<?php
-					$authentication->set_authentication_button();
-					
+					$authentication->set_authentication_button();					
 				?>
+				<form method="POST">
+				<input type="checkbox" value="1" name="user_id">
 				<div class="friends_wrapper">
 					<ul class="friends">
 						<?php $authentication->run(); ?>
 					</ul>
 				</div>
+				<button type="submit" class="send_button"><span>Посмотреть пример</span></button>
+				
+				</form>
+				<?php 
+				$authentication->echoing(); ?>
 			</div>
 		</div>
 	</div>
