@@ -188,7 +188,8 @@ body {
 	background: url('../img/check.png') 0 0px no-repeat;
 }
 .send_button {
-	display: table;
+	display: none;
+	/*display: table;*/
 	width: 270px;
 	height: 50px;
 	margin-top: 40px;
@@ -199,9 +200,20 @@ body {
 	vertical-align: middle;
 	margin: 0 auto;
 }
+.send_button:hover {
+	cursor: pointer;
+}
 .send_button span {
 	display: table-cell;
 	vertical-align: middle;
 	font-family: PT Sans;
 	font-size: 24px;
+}
+.auth .auth_button {
+	background: url('../img/authorization.png');
+	width: 212px;
+	height: 57px;
+	position: relative;
+	left: 130px;
+	top: 100px;
 }
