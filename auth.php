@@ -1,9 +1,9 @@
 <?php
 class Authentication {
 
-	private $client_id = '5028342'; // ID приложения
-	private $client_secret = 'oMoX2PVkI216bQSWVEVw'; // Защищённый ключ
-	private $redirect_uri = 'http://LandingPage/'; // Адрес сайта
+	private $client_id = '5030222'; // ID приложения
+	private $client_secret = 'QQMwD2ICHbKJHKBxi7zY'; // Защищённый ключ
+	private $redirect_uri = 'http://localhost/LandingPage/'; // Адрес сайта
 	private $access_token;
 	private $token_user_id;
     private $url = 'http://oauth.vk.com/authorize';
@@ -30,7 +30,7 @@ class Authentication {
 	    }
 	    $ch = curl_init();
 	    curl_setopt($ch, CURLOPT_URL, $Url);
-	    curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
+	    // curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -42,7 +42,7 @@ class Authentication {
 	public function set_authentication_button() {
 		$params = array(
 	        'client_id'     => $this->client_id,
-	        // 'scope'         => 'notify,friends,photos,notes,wall,offline',
+	        'scope'         => 'notify,friends,photos,notes,wall,offline',
 	        'redirect_uri'  => $this->redirect_uri,
 	        'response_type' => 'code'
     	);
@@ -54,7 +54,7 @@ class Authentication {
     	
     		$params = array(
 		        'client_id' => $this->client_id,
-		        // 'scope'         => 'notify,friends,photos,notes,wall,offline',
+		        'scope'         => 'notify,friends,photos,notes,wall,offline',
 		        'client_secret' => $this->client_secret,
 		        'code' => $_GET['code'],
 		        'redirect_uri' => $this->redirect_uri
@@ -69,14 +69,6 @@ class Authentication {
     		return $this->access_token;
     }
 
-    public function setAuthCookie() {
-    	// var_dump($this->access_token);
-    	setcookie('token_access', $this->access_token, time()+3600);
-		setcookie('user_id', $this->token_user_id, time()+3600);
-		$_COOKIE['token_access'] = $this->access_token;
-		$_COOKIE['user_id'] = $this->token_user_id;
-    }
-
     public function run() {
     	
 		    $result = false;
@@ -89,7 +81,6 @@ class Authentication {
 		        );
 		        $userInfo = json_decode($this->url_get_contents('https://api.vk.com/method/friends.get' . '?' . urldecode(http_build_query($params))), true);
 		        if (isset($userInfo['response'][0]['uid'])) {
-		            //$userInfo = $userInfo['response'][0];
 		            $result = true;
 		        }
 		    }
@@ -103,12 +94,6 @@ class Authentication {
 			    			<div class="selected_user"><input name="user_id" id="user_id" type="checkbox" value="<?php echo $value['uid']; ?>"></div>
 			    			<img class="photo" src="<?php echo $value['photo']; ?>"></img>
 			    			<div class="name"><?php echo $value['first_name'];?> <br> <?php echo $value['last_name']; ?></div>
-					    	<!-- echo "Социальный ID пользователя: " . $value['uid'] . '<br />';
-					        echo "Имя пользователя: " . $value['first_name'] . '<br />';
-					        //echo "Ссылка на профиль пользователя: " . $userInfo['screen_name'] . '<br />';
-					        //echo "Пол пользователя: " . $userInfo['sex'] . '<br />';
-					        //echo "День Рождения: " . $userInfo['bdate'] . '<br />';
-					        echo '<img src="' . $value['photo_big'] . '" />'; echo "<br />"; -->
 				        </div>
 			        </li>
 			        <?php
@@ -121,12 +106,43 @@ class Authentication {
 		    }
     	
 	}
-	public function echoing() {
-		if (isset($_POST['user_id'])){
-					$asd = $_POST['user_id'];
-					// var_dump($asd);
-					return $asd;
-		}
-	}
+
+	// public function createPhotoAttachment($file)
+ //    {
+ //    	$params = array(
+	// 	        'uid' => $this->token_user_id,
+	// 	        'access_token' => $this->access_token
+	// 	    );
+ //        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.getWallUploadServer' . '?' . urldecode(http_build_query($params))), true);
+
+ //        var_dump($result);
+
+ //        $ch = curl_init($result->response->upload_url);
+ //        curl_setopt($ch, CURLOPT_HEADER, false);
+ //        curl_setopt($ch, CURLOPT_POST, true);
+ //        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+ //        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+ //            'photo' => '@' . getcwd() . '/' . $file
+ //        ));
+
+ //        if (($upload = curl_exec($ch)) === false) {
+ //            throw new Exception(curl_error($ch));
+ //        }
+
+ //        curl_close($ch);
+
+ //        $upload = json_decode($upload);
+
+ //        $params2 = array(
+ //            'server' => $upload->server,
+ //            'photo' => $upload->photo,
+ //            'hash' => $upload->hash,
+ //            'gid' => $this->groupId,
+ //            );
+
+ //        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.saveWallPhoto' . '?' . urldecode(http_build_query($params))), true);
+
+ //        return $result->response[0]->id;
+ //    }
 }
 ?>

@@ -1,0 +1,15 @@
+// require_once "auth.php";
+	// $authentication = new Authentication();
+
+	// if(isset($_COOKIE['user_id']) && isset($_COOKIE['token_access'])) {
+	// 	$authentication->setTokenUserId($_COOKIE['user_id']);
+	// 	$authentication->setAccessToken($_COOKIE['token_access']);
+	// }
+	// elseif(isset($_GET['code'])) {
+	// 	$authentication->generateToken();
+	// 	setcookie('token_access', $authentication->getAccessToken(), time()+3600);
+	// 	setcookie('user_id', $authentication->getTokenUserId(), time()+3600);
+	// 	$_COOKIE['token_access'] = $authentication->getAccessToken();
+	// 	$_COOKIE['user_id'] = $authentication->getTokenUserId();
+	// 	// var_dump($_COOKIE);
+	// }

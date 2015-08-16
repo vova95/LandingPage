@@ -1,23 +1,37 @@
 <?php
-	ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+
 	require_once "auth.php";
 	$authentication = new Authentication();
 
-	if(isset($_COOKIE['user_id']) && isset($_COOKIE['token_access'])) {
-		$authentication->setTokenUserId($_COOKIE['user_id']);
-		$authentication->setAccessToken($_COOKIE['token_access']);
+	if(isset($_COOKIE['session_id'])) {
+		session_id($_COOKIE['session_id']);
+
+		session_start();
+
+		$authentication->setTokenUserId($_SESSION['user_id']);
+		$authentication->setAccessToken($_SESSION['token_access']);
+		// var_dump($_SESSION['token_access']);
 	}
 	elseif(isset($_GET['code'])) {
-		$authentication->generateToken();
-		setcookie('token_access', $authentication->getAccessToken(), time()+3600);
-		setcookie('user_id', $authentication->getTokenUserId(), time()+3600);
-		$_COOKIE['token_access'] = $authentication->getAccessToken();
-		$_COOKIE['user_id'] = $authentication->getTokenUserId();
-		// var_dump($_COOKIE);
-	}
 
+		$url = 'Location: http://localhost/LandingPage/';
+
+		$authentication->generateToken();
+
+		session_start();
+
+		setcookie('session_id', session_id(), time()+3600);
+		// setcookie('adress', $url, time()+3600);
+
+		$_COOKIE['session_id'] = session_id();
+		// $_COOKIE['adress'] = $url;
+
+		// setcookie('user_id', $authentication->getTokenUserId(), time()+3600);
+		$_SESSION['token_access'] = $authentication->getAccessToken();
+		$_SESSION['user_id'] = $authentication->getTokenUserId();
+		// var_dump($_COOKIE);
+		header($url);
+	}
 
 ?>
 <!DOCTYPE html>
@@ -25,8 +39,9 @@ ini_set('display_startup_errors', 1);
 <head>
 	<title>Landing Page</title>
 	<meta charset="utf-8">
-	<script type="text/javascript" src="http://userapi.com/js/api/openapi.js"></script>
+	<script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans" />
@@ -36,40 +51,11 @@ ini_set('display_startup_errors', 1);
 <script language="javascript">
 				
 			    VK.init({
-			        apiId: 5028342 
+			        apiId: 5030222 
 			    });
-			    
-
-			    function sendwallpost(mydata) {
-			    	var selected = [];
-			    	$('input[name="user_id"]:checked').each(function() {
-			    		selected.push(this.value);
-					});
-			    	selected.forEach(function(value) {
-			    		VK.api("wall.post", {
-			            owner_id: value,
-			            message: mydata
-			        }, function (data) {});
-			    	});
-			    	// console.log(selected);
-			    	// $.each(selected, function(index, value) {
-			    	// 	console.log(value);
-			    	// 	VK.api("wall.post", {
-			     //        owner_id: value,
-			     //        message: mydata
-			     //    }, function (data) {});
-			    	// });
-			    }
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		if($('.auth').parents('.friends').length !== 1) {
-			$('.send_button').css('display', 'table');
-		}
-});
 </script>
 <?php
-
+	// var_dump($authentication->createPhotoAttachment("../img/example1.png"));
 
 ?>
 
@@ -105,21 +91,37 @@ ini_set('display_startup_errors', 1);
 					</select>
 				</label>
 				
-				<form method="POST">
 				<!-- <input type="checkbox" value="1" name="user_id"> -->
 				<div class="friends_wrapper">
 					<ul class="friends">
 						<?php $authentication->run(); ?>
 					</ul>
 				</div>
-				<div class="send_button" onclick="sendwallpost('Hello!');"><span>Посмотреть пример</span></div>
-				
-				</form>
-				<?php 
-				$authentication->echoing(); ?>
+			</div>
+			<div class="example">
+			<img class="example_img" src=""></img>
+				</div>
+			<div class="example_button button">
+				<span>Посмотреть пример</span>
+			</div>
+			<div class="send_button button">
+				<span>Разместить на стене у друзей</span>
 			</div>
 			<!-- <div onclick="sendwallpost('Hello!');">отправить</div> -->
 			
+		</div>
+		<div class="pop_up_wrapper">
+			<div class="pop_up">
+				<div class="close">
+				</div>
+				<div class="pop_up_text">
+					<h3 align="center" class="pop_up_title">Подведем итоги</h3>
+					<p>Удалось опубликовать <span class="selected_friends_number"></span> на стенах ваших друзей.</p>
+					<p class="discount">Каждая покупка принесет вам <span class="discount_number">30%</span> от чека.</p>
+					<p>Рекомендуем не сидеть сложа руки и отправить письмо по списку ваших контактов в почте.</p>
+					<div class="send_mail button"><span>Отправить письмо</span></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

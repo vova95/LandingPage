@@ -41,12 +41,13 @@ body {
 }
 .content {
 	width: 815px;
-	height: 1205px;
+	height: auto;
 	padding: 50px 75px 40px 50px;
 	background: #ffffff;
 	box-shadow: 0 0 15px rgba(0,0,0,0.5);
 	margin: 0 auto;
 	margin-top: 230px;
+	margin-bottom: 80px;
 }
 .advertisement {
 	margin: 0;
@@ -115,12 +116,12 @@ body {
 	font-family: PT Sans;
 }
 .products option {
+	background-color: white;
 	border: solid 1px #d3d3d3;
-	height: 100px;
+	font-size: 20px;
 }
 
 .products:focus {
-	background: green;
 }
 .friends_wrapper {
 	height: 350px;
@@ -187,10 +188,10 @@ body {
 .selected_user input[type=checkbox]:checked {
 	background: url('../img/check.png') 0 0px no-repeat;
 }
-.send_button {
+.button {
 	display: none;
 	/*display: table;*/
-	width: 270px;
+	/*width: 270px;*/
 	height: 50px;
 	margin-top: 40px;
 	background: #de4a4a;
@@ -199,15 +200,18 @@ body {
 	color: white;
 	vertical-align: middle;
 	margin: 0 auto;
+	transition: opacity 0.2s ease-in-out;
 }
-.send_button:hover {
+.button:hover {
 	cursor: pointer;
+	opacity: 0.85;
 }
-.send_button span {
+.button span {
 	display: table-cell;
 	vertical-align: middle;
 	font-family: PT Sans;
 	font-size: 24px;
+	padding: 0 25px;
 }
 .auth .auth_button {
 	background: url('../img/authorization.png');
@@ -216,4 +220,75 @@ body {
 	position: relative;
 	left: 130px;
 	top: 100px;
+}
+.example {
+	display: none;
+	width: 650px;
+	height: 440px;
+	margin: 0 auto;
+	/*position: inherit;*/
+	background: #f2f2f2;
+	padding: 15px;
+	box-sizing: border-box;
+	margin-bottom: 40px;
+}
+.example .example_img {
+	width: 100%;
+	height: 407px;
+}
+.pop_up_wrapper {
+	display: none;
+	top: 0;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+}
+.pop_up_wrapper .pop_up {
+	margin: 0 auto;
+	width: 625px;
+	height: 435px;
+	margin-top: 150px;
+}
+.pop_up_wrapper .pop_up .close {
+	background: url('../img/close.png') 0 0 no-repeat;
+	width: 23px;
+	height: 23px;
+	margin-left:auto;
+	margin-right:0;
+	padding-bottom: 10px;
+	cursor: pointer;
+}
+.pop_up_wrapper .pop_up .pop_up_text {
+	width: 100%;
+	/*height: 100%;*/
+	background: white;
+	border-radius: 5px;
+	box-sizing: border-box;
+	padding: 20px 50px 30px 40px;
+	font-family: PT Sans;
+	text-align: left;
+	font-size: 21px;
+}
+.pop_up_wrapper .pop_up .pop_up_text .pop_up_title {
+	color: #2573b5;
+	font-size: 27px;
+	font-weight: bold;
+}
+.pop_up_wrapper .pop_up .pop_up_text .selected_friends_number {
+	font-weight: bold;
+}
+.send_mail {
+	display: table;
+}
+.pop_up_wrapper .pop_up .pop_up_text .discount {
+		text-transform: uppercase;
+		color: #de101a;
+
+}
+.pop_up_wrapper .pop_up .pop_up_text .discount .discount_number {
+	font-size: 35px;
+	color: #2573b5;
 }
