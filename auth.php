@@ -1,9 +1,9 @@
 <?php
 class Authentication {
 
-	private $client_id = '5028342'; // ID приложения
-	private $client_secret = 'oMoX2PVkI216bQSWVEVw'; // Защищённый ключ
-	private $redirect_uri = 'http://LandingPage/'; // Адрес сайта
+	private $client_id = '5030222'; // ID приложения
+	private $client_secret = 'QQMwD2ICHbKJHKBxi7zY'; // Защищённый ключ
+	private $redirect_uri = 'http://localhost/LandingPage/'; // Адрес сайта
 	private $access_token;
 	private $token_user_id;
     private $url = 'http://oauth.vk.com/authorize';
@@ -30,7 +30,7 @@ class Authentication {
 	    }
 	    $ch = curl_init();
 	    curl_setopt($ch, CURLOPT_URL, $Url);
-	    curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
+	    // curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -42,7 +42,7 @@ class Authentication {
 	public function set_authentication_button() {
 		$params = array(
 	        'client_id'     => $this->client_id,
-	        'scope'         => 'notify,friends,photos,notes',
+	        // 'scope'         => 'notify,friends,photos,notes',
 	        'redirect_uri'  => $this->redirect_uri,
 	        'response_type' => 'code'
     	);
@@ -54,7 +54,7 @@ class Authentication {
     	
     		$params = array(
 		        'client_id' => $this->client_id,
-		        'scope'         => 'notify,friends,photos,notes',
+		        // 'scope'         => 'notify,friends,photos,notes',
 		        'client_secret' => $this->client_secret,
 		        'code' => $_GET['code'],
 		        'redirect_uri' => $this->redirect_uri
@@ -72,7 +72,7 @@ class Authentication {
     public function run() {
     	
 		    $result = false;
-		    
+		    // var_dump($_SESSION);
 		    if (isset($this->access_token)) {
 		        $params = array(
 		            'uids'         => $this->token_user_id,

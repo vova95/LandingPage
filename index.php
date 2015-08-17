@@ -4,6 +4,7 @@
 	$authentication = new Authentication();
 
 	if(isset($_COOKIE['session_id'])) {
+		
 		session_id($_COOKIE['session_id']);
 
 		session_start();
@@ -14,7 +15,7 @@
 	}
 	elseif(isset($_GET['code'])) {
 
-		$url = 'Location: http://LandingPage/';
+		$url = 'Location: http://localhost/LandingPage/';
 
 		$authentication->generateToken();
 
@@ -51,7 +52,7 @@
 <script language="javascript">
 				
 			    VK.init({
-			        apiId: 5028342 
+			        apiId: 5030222 
 			    });
 </script>
 <?php
