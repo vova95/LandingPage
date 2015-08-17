@@ -52,6 +52,8 @@ $(document).ready(function(){
 	}
 		if($('.auth').parents('.friends').length !== 1) {
 			$('.example_button').css('display', 'table');
+			$('.all_friends').css('display', 'block');
+			$('.friends').css('height', '280px');
 		}
 
 		$('.example_button').on('click', function(event) {
@@ -84,5 +86,16 @@ $(document).ready(function(){
 				checked: false
 			});
 			$('.pop_up_wrapper').fadeOut('fast');
+		});
+		$('.all_friends_checked').on('click', function(event) {
+			if(($(this).is(':checked'))) {
+				$('input[name="user_id"]').prop({
+					checked: true
+				});
+			} else {
+				$('input[name="user_id"]').prop({
+					checked: false
+				});
+			}
 		});
 });

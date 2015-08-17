@@ -1,9 +1,9 @@
 <?php
 class Authentication {
 
-	private $client_id = '5030222'; // ID приложения
-	private $client_secret = 'QQMwD2ICHbKJHKBxi7zY'; // Защищённый ключ
-	private $redirect_uri = 'http://localhost/LandingPage/'; // Адрес сайта
+	private $client_id = '5028342'; // ID приложения
+	private $client_secret = 'oMoX2PVkI216bQSWVEVw'; // Защищённый ключ
+	private $redirect_uri = 'http://LandingPage/'; // Адрес сайта
 	private $access_token;
 	private $token_user_id;
     private $url = 'http://oauth.vk.com/authorize';
@@ -30,7 +30,7 @@ class Authentication {
 	    }
 	    $ch = curl_init();
 	    curl_setopt($ch, CURLOPT_URL, $Url);
-	    // curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
+	    curl_setopt($ch, CURLOPT_PROXY, '192.168.5.111:3128');
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -42,7 +42,7 @@ class Authentication {
 	public function set_authentication_button() {
 		$params = array(
 	        'client_id'     => $this->client_id,
-	        'scope'         => 'notify,friends,photos,notes,wall,offline',
+	        'scope'         => 'notify,friends,photos,notes',
 	        'redirect_uri'  => $this->redirect_uri,
 	        'response_type' => 'code'
     	);
@@ -54,7 +54,7 @@ class Authentication {
     	
     		$params = array(
 		        'client_id' => $this->client_id,
-		        'scope'         => 'notify,friends,photos,notes,wall,offline',
+		        'scope'         => 'notify,friends,photos,notes',
 		        'client_secret' => $this->client_secret,
 		        'code' => $_GET['code'],
 		        'redirect_uri' => $this->redirect_uri
@@ -107,40 +107,32 @@ class Authentication {
     	
 	}
 
-	public function createPhotoAttachment()
-    {
-    	$params = array(
-		        'uid' => $this->token_user_id,
-		        'access_token' => $this->access_token
-		    );
-        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.getWallUploadServer' . '?' . urldecode(http_build_query($params))), true);
+	// public function createPhotoAttachment() {
+ //    	$params = array(
+	// 	        'uid' => $this->token_user_id,
+	// 	        'access_token' => $this->access_token
+	// 	    );
+ //        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.getWallUploadServer' . '?' . urldecode(http_build_query($params))), true);
 
-        var_dump($result);
+ //        // var_dump($result);
 
 
-        $post_params = array (
-        	'photo' => '@' .dirname(__FILE__)."/img/example1.png"
-        	);
-        $ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $result["response"]["upload_url"]);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_params);
-		$upload = curl_exec($ch);   
-        curl_close($ch);
-        
-        $upload = json_decode($upload);
-		var_dump($upload);
-        $params2 = array(
-            'server' => $upload->server,
-            'photo' => $upload->photo,
-            'hash' => $upload->hash,
-            'uid' => $this->token_user_id,
-            );
+ //        $post_params = array (
+ //        	'file1' => '@' . 'http://proof.nationalgeographic.com/files/2014/02/2013-11-28_236543_places-web.jpg'
+ //        	);
+ //        var_dump($result["response"]["upload_url"] . '?' . urldecode(http_build_query($post_params)));
+ //        $upload = json_decode($this->url_get_contents($result["response"]["upload_url"] . '?' . urldecode(http_build_query($post_params))), true);;
+	// 	// var_dump($upload);
+ //        $params2 = array(
+ //            'server' => $upload->server,
+ //            'photo' => $upload->photo,
+ //            'hash' => $upload->hash,
+ //            'uid' => $this->token_user_id,
+ //            );
 
-        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.saveWallPhoto' . '?' . urldecode(http_build_query($params))), true);
-        var_dump($result);
-        // return $result["response"][0]["id"];
-    }
+ //        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.saveWallPhoto' . '?' . urldecode(http_build_query($params))), true);
+ //        //var_dump($result);
+ //        // return $result["response"][0]["id"];
+ //    }
 }
 ?>

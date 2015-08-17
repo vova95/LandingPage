@@ -14,7 +14,7 @@
 	}
 	elseif(isset($_GET['code'])) {
 
-		$url = 'Location: http://localhost/LandingPage/';
+		$url = 'Location: http://LandingPage/';
 
 		$authentication->generateToken();
 
@@ -42,20 +42,20 @@
 	<script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
-
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans" />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans" />
+	
 </head>
 <body>
 
 <script language="javascript">
 				
 			    VK.init({
-			        apiId: 5030222 
+			        apiId: 5028342 
 			    });
 </script>
 <?php
-	$authentication->createPhotoAttachment("img/example1.png");
+	// $authentication->createPhotoAttachment();
 
 ?>
 
@@ -91,8 +91,12 @@
 					</select>
 				</label>
 				
-				<!-- <input type="checkbox" value="1" name="user_id"> -->
+				
 				<div class="friends_wrapper">
+				<div class="all_friends">
+				<input type="checkbox" class="all_friends_checked" >
+				<span>Отправить всем друзьям</span>
+				</div>
 					<ul class="friends">
 						<?php $authentication->run(); ?>
 					</ul>
