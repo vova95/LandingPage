@@ -107,42 +107,40 @@ class Authentication {
     	
 	}
 
-	// public function createPhotoAttachment($file)
- //    {
- //    	$params = array(
-	// 	        'uid' => $this->token_user_id,
-	// 	        'access_token' => $this->access_token
-	// 	    );
- //        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.getWallUploadServer' . '?' . urldecode(http_build_query($params))), true);
+	public function createPhotoAttachment()
+    {
+    	$params = array(
+		        'uid' => $this->token_user_id,
+		        'access_token' => $this->access_token
+		    );
+        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.getWallUploadServer' . '?' . urldecode(http_build_query($params))), true);
 
- //        var_dump($result);
+        var_dump($result);
 
- //        $ch = curl_init($result->response->upload_url);
- //        curl_setopt($ch, CURLOPT_HEADER, false);
- //        curl_setopt($ch, CURLOPT_POST, true);
- //        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
- //        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
- //            'photo' => '@' . getcwd() . '/' . $file
- //        ));
 
- //        if (($upload = curl_exec($ch)) === false) {
- //            throw new Exception(curl_error($ch));
- //        }
+        $post_params = array (
+        	'photo' => '@' .dirname(__FILE__)."/img/example1.png"
+        	);
+        $ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $result["response"]["upload_url"]);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_params);
+		$upload = curl_exec($ch);   
+        curl_close($ch);
+        
+        $upload = json_decode($upload);
+		var_dump($upload);
+        $params2 = array(
+            'server' => $upload->server,
+            'photo' => $upload->photo,
+            'hash' => $upload->hash,
+            'uid' => $this->token_user_id,
+            );
 
- //        curl_close($ch);
-
- //        $upload = json_decode($upload);
-
- //        $params2 = array(
- //            'server' => $upload->server,
- //            'photo' => $upload->photo,
- //            'hash' => $upload->hash,
- //            'gid' => $this->groupId,
- //            );
-
- //        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.saveWallPhoto' . '?' . urldecode(http_build_query($params))), true);
-
- //        return $result->response[0]->id;
- //    }
+        $result = json_decode($this->url_get_contents('https://api.vk.com/method/photos.saveWallPhoto' . '?' . urldecode(http_build_query($params))), true);
+        var_dump($result);
+        // return $result["response"][0]["id"];
+    }
 }
 ?>

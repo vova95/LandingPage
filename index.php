@@ -55,7 +55,7 @@
 			    });
 </script>
 <?php
-	// var_dump($authentication->createPhotoAttachment("../img/example1.png"));
+	$authentication->createPhotoAttachment("img/example1.png");
 
 ?>
 
