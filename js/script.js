@@ -15,8 +15,8 @@ $(document).ready(function(){
 					// console.log(sendedPosts);
 			    		VK.api("wall.post", {
 			            owner_id: selectedIds[currentId],
-			            message: message,
-			            attachments : 'photo114682098_312885815'
+			            message: message.message,
+			            attachments : message.attachment
 			        }, function (data) {
 			        	if (data.response) {
 			        		sendedPosts++;
@@ -28,7 +28,23 @@ $(document).ready(function(){
 			        });
 			    	
 };
+	function loadJSON(callback) {   
+
+	    var xobj = new XMLHttpRequest();
+	        xobj.overrideMimeType("application/json");
+	    xobj.open('GET', 'messages/messages.json', true); // Replace 'my_data' with the path to your file
+	    xobj.onreadystatechange = function () {
+	          if (xobj.readyState == 4 && xobj.status == "200") {
+	            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+	            callback(xobj.responseText);
+	          }
+	    };
+	    xobj.send(null);  
+	    
+ }
+
 	function viewExample() {
+
 		$('.example').fadeIn('fast');
 		if ($('.products').val() == 'Magento') {
 			$('.example .example_img').attr({
@@ -62,13 +78,21 @@ $(document).ready(function(){
 
 
 		$('.send_button').on('click', function() {
+
 			var selected = [];
 			$('input[name="user_id"]:checked').each(function() {
 			    selected.push(this.value);
 			});
-			if($('.login').val() !== '' && selected.length !== 0) {
-				sendWallPost(selected, "hello", 0);
+
+			loadJSON(function(response) {
+			var messageIndex = $('.products').val();
+		    var actual_JSON = JSON.parse(response);
+		    actual_JSON
+
+		    if($('.login').val() !== '' && selected.length !== 0) {
+				sendWallPost(selected, actual_JSON[messageIndex], 0);
 			}
+		 });
 		});
 
 

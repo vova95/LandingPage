@@ -15,7 +15,7 @@
 	}
 	elseif(isset($_GET['code'])) {
 
-		$url = 'Location: http://localhost/LandingPage/';
+		$url = 'Location: http://LandingPage/';
 
 		$authentication->generateToken();
 
@@ -42,9 +42,12 @@
 	<meta charset="utf-8">
 	<script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="messages/messages.json"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans" />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/media.css">
 	
 </head>
 <body>
@@ -52,7 +55,7 @@
 <script language="javascript">
 				
 			    VK.init({
-			        apiId: 5030222 
+			        apiId: 5028342 
 			    });
 </script>
 <?php
@@ -80,15 +83,23 @@
 				<h3 class="heading">Поехали!</h3>
 				<label>
 					Ваш логин в партнерской программе TemplateMonster:
-					<a href="" class="no_login">Нет логина?</a>
+					<a href="http://www.templatemonster.com/ru/sign-up/" target="_blank" class="no_login">Нет логина?</a>
 					<input type = "text" class="login"></input>
 				</label>
 				<label>
 					Про какой продукт хотите рассказать:
 					<select type = "text" class="products">
-						<option>Magento</option>
-						<option>PrestaShop</option>
-						<option>Opencart</option>
+
+						<option value="0">Wordpress шаблоны</option>
+						<option value="1">Monstroid</option>
+						<option value="2">Joomla шаблоны</option>
+						<option value="3">MotoCMS шаблоны</option>
+						<option value="4">PrestaShop шаблоны</option>
+						<option value="5">OpenCart шаблоны</option>
+						<option value="6">Magento шаблоны</option>
+						<option value="7">Woocommerce шаблоны</option>
+						<option value="8">Drupal шаблоны</option>
+						<option value="9">HTML шаблоны</option>
 					</select>
 				</label>
 				
