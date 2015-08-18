@@ -44,21 +44,14 @@ $(document).ready(function(){
  }
 
 	function viewExample() {
-
+		var messageIndex = $('.products').val();
 		$('.example').fadeIn('fast');
-		if ($('.products').val() == 'Magento') {
+		loadJSON(function(response) {
+			var actual_JSON = JSON.parse(response);
 			$('.example .example_img').attr({
-				src: 'img/example1.png'
+				src: actual_JSON.messages[messageIndex].example
 			});
-		} else if($('.products').val() == 'PrestaShop') {
-			$('.example .example_img').attr({
-				src: 'img/example2.png'
-			});
-		} else if($('.products').val() == 'PrestaShop') {
-			$('.example .example_img').attr({
-				src: 'img/example3.png'
-			});
-		}
+		});
 		$('.example_button').css({
 			display: 'none'
 		});
@@ -87,10 +80,9 @@ $(document).ready(function(){
 			loadJSON(function(response) {
 			var messageIndex = $('.products').val();
 		    var actual_JSON = JSON.parse(response);
-		    actual_JSON
-
+		    console.log(actual_JSON);
 		    if($('.login').val() !== '' && selected.length !== 0) {
-				sendWallPost(selected, actual_JSON[messageIndex], 0);
+				sendWallPost(selected, actual_JSON.messages[messageIndex], 0);
 			}
 		 });
 		});

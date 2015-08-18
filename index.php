@@ -15,7 +15,7 @@
 	}
 	elseif(isset($_GET['code'])) {
 
-		$url = 'Location: http://LandingPage/';
+		$url = 'Location: http://localhost/LandingPage/';
 
 		$authentication->generateToken();
 
@@ -42,7 +42,6 @@
 	<meta charset="utf-8">
 	<script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="messages/messages.json"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans" />
@@ -55,7 +54,7 @@
 <script language="javascript">
 				
 			    VK.init({
-			        apiId: 5028342 
+			        apiId: 5030222 
 			    });
 </script>
 <?php
