@@ -317,7 +317,7 @@ div *::-webkit-scrollbar-button:end:hover {
 	height: 407px;
 }
 .pop_up_wrapper {
-	display: none;
+	display: block;
 	top: 0;
 	left: 0;
 	position: fixed;

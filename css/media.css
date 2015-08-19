@@ -1,12 +1,15 @@
 @media screen and (max-width: 1340px) {
 	body {
-		background-size: 100% 70%;
+		background-size: 100% 80%;
 	}
 	.content {
 		margin-top: 150px;
 	}
 }
 @media screen and (max-width: 960px) {
+	body {
+		background-size: 100% 70%;
+	}
 	.main_content {
     	padding: 0 60px 0 60px;
 	}
@@ -28,6 +31,9 @@
 	}
 }
 @media screen and (max-width: 770px) {
+	body {
+		background-size: 100% 60%;
+	}
 	.title {
 		font-size: 35px;
 	}
@@ -74,6 +80,9 @@
 	}
 }
 @media screen and (max-width: 540px) {
+	body {
+		background-size: 100% 50%;
+	}
 	.logo {
 	    padding-top: 20px;
 	    padding-bottom: 15px;

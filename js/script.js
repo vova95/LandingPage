@@ -87,6 +87,17 @@ $(document).ready(function(){
 		 });
 		});
 
+		$('.products').change(function() {
+			$('.example').css({
+				display: 'none'
+			});
+			$('.send_button').css({
+				display: 'none'
+			});
+			$('.example_button').css({
+				display: 'table'
+			});
+		});
 
 		$('.pop_up_wrapper .pop_up .close').on('click', function(event) {
 			$('.example').css({

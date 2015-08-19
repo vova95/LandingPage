@@ -1,7 +1,7 @@
 <?php
 
 	require_once "auth.php";
-	$authentication = new Authentication();
+	$vkApi = new vkApi();
 
 	if(isset($_COOKIE['session_id'])) {
 		
@@ -9,15 +9,15 @@
 
 		session_start();
 
-		$authentication->setTokenUserId($_SESSION['user_id']);
-		$authentication->setAccessToken($_SESSION['token_access']);
+		$vkApi->setTokenUserId($_SESSION['user_id']);
+		$vkApi->setAccessToken($_SESSION['token_access']);
 		// var_dump($_SESSION['token_access']);
 	}
 	elseif(isset($_GET['code'])) {
 
-		$url = 'Location: http://localhost/LandingPage/';
+		$url = 'Location: http://LandingPage/';
 
-		$authentication->generateToken();
+		$vkApi->generateToken();
 
 		session_start();
 
@@ -28,8 +28,8 @@
 		// $_COOKIE['adress'] = $url;
 
 		// setcookie('user_id', $authentication->getTokenUserId(), time()+3600);
-		$_SESSION['token_access'] = $authentication->getAccessToken();
-		$_SESSION['user_id'] = $authentication->getTokenUserId();
+		$_SESSION['token_access'] = $vkApi->getAccessToken();
+		$_SESSION['user_id'] = $vkApi->getTokenUserId();
 		// var_dump($_COOKIE);
 		header($url);
 	}
@@ -54,7 +54,7 @@
 <script language="javascript">
 				
 			    VK.init({
-			        apiId: 5030222 
+			        apiId: 5028342 
 			    });
 </script>
 <?php
@@ -109,7 +109,7 @@
 				<span>Отправить всем друзьям</span>
 				</div>
 					<ul class="friends">
-						<?php $authentication->run(); ?>
+						<?php $vkApi->getFriends(); ?>
 					</ul>
 				</div>
 			</div>
